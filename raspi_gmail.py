@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Gmail checker, update GPIO leds,display on serial VF Display
 # 2/15/14 - Bob S.
-# 2/25/13 - Added subject awareness
+# 2/25/13 - Added subject awareness, gmail auth file
 
 # Python setup
 # sudo apt-get install python-pip
@@ -12,12 +12,12 @@ import urllib2
 from Resetable_timer import TimerReset
 from Resetable_timer import vfdClear
 from Resetable_timer import vfdOut
-import gmail_vfd_config 
+import gmail_vfd_config; # Global constants
+import gmail_vfd_auth; # Gmail credentials
 
 # Constants
 DEBUG = 1
-USERNAME = "blurfl" 
-PASSWORD = "mycode"      
+
 NEWMAIL_OFFSET = 0        # If your unread count never goes to zero, set this
 MAIL_CHECK_FREQ = 60
 GREEN_LED = 9
@@ -49,7 +49,7 @@ gmail_vfd_config.clrTimer = TimerReset(1, vfdClear, args=[vfdPort])
 # Create http basic auth handler
 auth_handler = urllib2.HTTPBasicAuthHandler()
 auth_handler.add_password('New mail feed', 'https://mail.google.com/',
-                          'blurfl', 'b0b5c0de')
+                          gmail_vfd_auth.USERNAME, gmail_vfd_auth.PASSWORD)
 t = time.time()
 ts = datetime.datetime.fromtimestamp(t).strftime('%Y-%m-%d %H:%M:%S')
 print "Starting at: ",ts 
