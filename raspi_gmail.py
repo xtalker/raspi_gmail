@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # Gmail checker, update GPIO leds,display on serial VF Display
 # 2/15/14 - Bob S.
-# 2/25/13 - Added subject awareness, gmail auth file
+# 2/25/13 - Added subject awareness, gmail auth file, flush stdout
 
 # Python setup
 # sudo apt-get install python-pip
 # sudo pip install feedparser
  
-import RPi.GPIO as GPIO, feedparser, time, datetime, serial
+import RPi.GPIO as GPIO, feedparser, time, datetime, serial, sys
 import urllib2
 from Resetable_timer import TimerReset
 from Resetable_timer import vfdClear
@@ -108,3 +108,6 @@ while True:
     time.sleep(1)
     GPIO.output(YELLOW_LED, False)
     time.sleep(1)
+
+    sys.stdout.flush()
+    
