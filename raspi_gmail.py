@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # Gmail checker, update GPIO leds,display on serial VF Display
 # 2/15/14 - Bob S.
+# 2/25/13 - Added subject awareness
 
 # Python setup
 # sudo apt-get install python-pip
@@ -16,7 +17,7 @@ import gmail_vfd_config
 # Constants
 DEBUG = 1
 USERNAME = "blurfl" 
-PASSWORD = "b0b5c0de"      
+PASSWORD = "mycode"      
 NEWMAIL_OFFSET = 0        # If your unread count never goes to zero, set this
 MAIL_CHECK_FREQ = 60
 GREEN_LED = 9
