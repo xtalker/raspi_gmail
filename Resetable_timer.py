@@ -32,7 +32,10 @@ def vfdOut(port, msg):
 
     # Write msg with leading space so it scrolls onto screen from the right
     port.write(" " * 25)
-    port.write(msg)
+    try:
+        port.write(msg + " ")
+    except Exception:
+        print "VFD Write Exception!"
 
 
 def TimerReset(*args, **kwargs):

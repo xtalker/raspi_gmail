@@ -96,6 +96,9 @@ while True:
         #vfdOut (vfdPort, "New: " + str(newmails) + " at " + ts)
         vfdOut (vfdPort, "Subject: " + entry.title)
 
+      # Write trailing spaces so text scrolls all the way to left
+      vfdPort.write(" " * 25)
+
   else:
     GPIO.output(GREEN_LED, False)
     GPIO.output(RED_LED, True)
