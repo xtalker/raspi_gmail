@@ -1,0 +1,16 @@
+Hint for using GIT
+username: xtalker
+passwd: mycode
+
+"Create a repro page" has most of this:
+https://help.github.com/articles/create-a-repro
+
+Add file to list to be commited
+git add FILENAME
+
+To Check in staged files:
+git commit -m 'comment about this commit'
+git push origin master (try "push -force" option if this doesnt work)
+  'origin" set with:
+  git remote add origin https://github.com/xtalker/raspi_gmail.git
+

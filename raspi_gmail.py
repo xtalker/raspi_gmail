@@ -59,7 +59,7 @@ newmails = 0
 
 while True:
   t = time.time()
-  ts = datetime.datetime.fromtimestamp(t).strftime('%H:%M')
+  ts = datetime.datetime.fromtimestamp(t).strftime('%m/%d-%H:%M')
   #print ts, "Init-New: ", newmails, " Last: ", lastCnt
 
   GPIO.output(YELLOW2_LED, True)
@@ -89,15 +89,24 @@ while True:
       lastCnt = newmails                
       GPIO.output(GREEN_LED, True)
       GPIO.output(RED_LED, False)
-
+      cnt = 1
+      
       for entry in emails.entries:
-        #t = time.time()
-        #ts = datetime.datetime.fromtimestamp(t).strftime('%H:%M')
-        #vfdOut (vfdPort, "New: " + str(newmails) + " at " + ts)
-        vfdOut (vfdPort, "Subject: " + entry.title)
 
-      # Write trailing spaces so text scrolls all the way to left
-      vfdPort.write(" " * 25)
+        # Write leading spaces so text starts on right before first entry
+        if cnt == 1:
+          vfdPort.write(" " * 25)          
+
+        vfdOut (vfdPort, "Subj: " + entry.title)
+
+        # Write some spaces between entries
+        if (cnt > 0) and (cnt < len(emails.entries)):
+          vfdPort.write(" " * 5)                    
+        # Write trailing spaces so text scrolls all the way to left after last
+        #elif cnt == len(emails.entries):
+        else:
+          vfdPort.write(" " * 25)
+        cnt += 1
 
   else:
     GPIO.output(GREEN_LED, False)
