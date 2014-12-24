@@ -3,7 +3,7 @@
 
 from threading import Thread, Event, Timer
 import time
-import gmail_vfd_config
+import gmail_vfd_include
 
 
 # Function to clear the vfd screen
@@ -13,20 +13,21 @@ def vfdClear(port):
 
 
 # Function to send message to VFD
-def vfdOut(port, msg):
+def vfdOut(port, msg, timeout):
     #global clrTimer
-    #msg = msg.decode('UTF-8')
+    #This avoids UTF decode exceptions when printing
     msg = msg.encode('ascii', 'ignore')
     print "vfdOut: sending: %s" % msg
 
     # Restart the clear timer if not running, reset if is running
-    if gmail_vfd_config.clrTimer.is_alive():
+    if gmail_vfd_include.clrTimer.is_alive():
         #print "vfdOut: Timer is running, resetting..."
-        gmail_vfd_config.clrTimer.reset()
+        gmail_vfd_include.clrTimer.reset()
     else:
         #print "vfdOut: Timer not running, Restarting..."
-        gmail_vfd_config.clrTimer = TimerReset(gmail_vfd_config.VFD_CLR_TIMEOUT, vfdClear, args=[port])
-        gmail_vfd_config.clrTimer.start()
+        #gmail_vfd_include.clrTimer = TimerReset(gmail_vfd_include.VFD_CLR_TIMEOUT, vfdClear, args=[port])
+        gmail_vfd_include.clrTimer = TimerReset(timeout, vfdClear, args=[port])
+        gmail_vfd_include.clrTimer.start()
 
     # Setup vfd
     port.write(str(unichr(0x1f) + unichr(0x03)))  # Horiz scroll mode
